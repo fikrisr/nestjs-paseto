@@ -11,10 +11,20 @@ module.exports = tseslint.config(
     ignores: ['dist/', 'node_modules/', 'coverage/'],
   },
   {
+    files: ['**/*.js'],
+    languageOptions: {
+      sourceType: 'commonjs',
+    },
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+      'no-undef': 'off', // Node.js globals like require/module
+    },
+  },
+  {
     files: ['src/**/*.ts', 'test/**/*.ts'],
     languageOptions: {
       parserOptions: {
-        project: true,
+        project: './tsconfig.spec.json',
         tsconfigRootDir: __dirname,
       },
     },
@@ -26,3 +36,4 @@ module.exports = tseslint.config(
     },
   },
 );
+
