@@ -13,7 +13,7 @@ A lightweight, zero-dependency Platform-Agnostic Security Tokens (PASETO) V4-lik
 ## Installation
 
 ```bash
-npm install nestjs-paseto
+npm install @fikrisr/nestjs-paseto
 ```
 
 ## Quick Start
