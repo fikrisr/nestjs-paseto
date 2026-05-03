@@ -7,6 +7,7 @@ A lightweight, zero-dependency Platform-Agnostic Security Tokens (PASETO) V4-lik
 - **Zero cryptographic dependencies** — uses Node.js native `crypto` exclusively
 - **Authenticated encryption** — ChaCha20-Poly1305 AEAD with built-in tamper detection
 - **NestJS dynamic module** — full async configuration (`useFactory`, `useClass`, `useExisting`)
+- **Global by default** — register once in `AppModule` and use everywhere
 - **Automatic claim validation** — issuer, audience, and expiration checked on every `verifyToken` call
 - **Typed payload extraction** — TypeScript generic on `verifyToken<T>` for typed decoded claims
 
@@ -25,7 +26,7 @@ Register `PasetoModule` in your root `AppModule`. The `symmetricKey` must be **e
 ```typescript
 // app.module.ts
 import { Module } from '@nestjs/common';
-import { PasetoModule } from 'nestjs-paseto';
+import { PasetoModule } from '@fikrisr/nestjs-paseto';
 
 @Module({
   imports: [
@@ -46,7 +47,7 @@ export class AppModule {}
 
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { PasetoService } from 'nestjs-paseto';
+import { PasetoService } from '@fikrisr/nestjs-paseto';
 
 interface TokenPayload {
   userId: string;
@@ -111,7 +112,7 @@ PasetoModule.registerAsync({
 ```typescript
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PasetoModuleOptionsFactory, PasetoOptions } from 'nestjs-paseto';
+import { PasetoModuleOptionsFactory, PasetoOptions } from '@fikrisr/nestjs-paseto';
 
 @Injectable()
 export class PasetoConfigFactory implements PasetoModuleOptionsFactory {
@@ -194,7 +195,7 @@ import {
   PasetoErrorCode,
   PasetoTokenExpiredException,
   PasetoTokenTamperedWithException,
-} from 'nestjs-paseto';
+} from '@fikrisr/nestjs-paseto';
 
 try {
   const claims = await pasetoService.verifyToken(token);
@@ -214,7 +215,7 @@ try {
 
 ```typescript
 import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common';
-import { PasetoException } from 'nestjs-paseto';
+import { PasetoException } from '@fikrisr/nestjs-paseto';
 
 @Catch(PasetoException)
 export class PasetoExceptionFilter implements ExceptionFilter {
